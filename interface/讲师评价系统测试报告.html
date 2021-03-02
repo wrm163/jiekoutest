@@ -1,0 +1,639 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>讲师评价系统</title>
+    <meta name="generator" content="HTMLTestRunner 0.8.2"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    
+<style type="text/css" media="screen">
+body        { font-family: verdana, arial, helvetica, sans-serif; font-size: 80%; }
+table       { font-size: 100%; }
+pre         { }
+
+/* -- heading ---------------------------------------------------------------------- */
+h1 {
+	font-size: 16pt;
+	color: gray;
+}
+.heading {
+    margin-top: 0ex;
+    margin-bottom: 1ex;
+}
+
+.heading .attribute {
+    margin-top: 1ex;
+    margin-bottom: 0;
+}
+
+.heading .description {
+    margin-top: 4ex;
+    margin-bottom: 6ex;
+}
+
+/* -- css div popup ------------------------------------------------------------------------ */
+a.popup_link {
+}
+
+a.popup_link:hover {
+    color: red;
+}
+
+.popup_window {
+    display: none;
+    position: relative;
+    left: 0px;
+    top: 0px;
+    /*border: solid #627173 1px; */
+    padding: 10px;
+    background-color: #E6E6D6;
+    font-family: "Lucida Console", "Courier New", Courier, monospace;
+    text-align: left;
+    font-size: 8pt;
+    width: 500px;
+}
+
+}
+/* -- report ------------------------------------------------------------------------ */
+#show_detail_line {
+    margin-top: 3ex;
+    margin-bottom: 1ex;
+}
+#result_table {
+    width: 80%;
+    border-collapse: collapse;
+    border: 1px solid #777;
+}
+#header_row {
+    font-weight: bold;
+    color: white;
+    background-color: #777;
+}
+#result_table td {
+    border: 1px solid #777;
+    padding: 2px;
+}
+#total_row  { font-weight: bold; }
+.passClass  { background-color: #6c6; }
+.failClass  { background-color: #c60; }
+.errorClass { background-color: #c00; }
+.passCase   { color: #6c6; }
+.failCase   { color: #c60; font-weight: bold; }
+.errorCase  { color: #c00; font-weight: bold; }
+.hiddenRow  { display: none; }
+.testcase   { margin-left: 2em; }
+
+
+/* -- ending ---------------------------------------------------------------------- */
+#ending {
+}
+
+</style>
+
+</head>
+<body>
+<script language="javascript" type="text/javascript"><!--
+output_list = Array();
+
+/* level - 0:Summary; 1:Failed; 2:All */
+function showCase(level) {
+    trs = document.getElementsByTagName("tr");
+    for (var i = 0; i < trs.length; i++) {
+        tr = trs[i];
+        id = tr.id;
+        if (id.substr(0,2) == 'ft') {
+            if (level < 1) {
+                tr.className = 'hiddenRow';
+            }
+            else {
+                tr.className = '';
+            }
+        }
+        if (id.substr(0,2) == 'pt') {
+            if (level > 1) {
+                tr.className = '';
+            }
+            else {
+                tr.className = 'hiddenRow';
+            }
+        }
+    }
+}
+
+
+function showClassDetail(cid, count) {
+    var id_list = Array(count);
+    var toHide = 1;
+    for (var i = 0; i < count; i++) {
+        tid0 = 't' + cid.substr(1) + '.' + (i+1);
+        tid = 'f' + tid0;
+        tr = document.getElementById(tid);
+        if (!tr) {
+            tid = 'p' + tid0;
+            tr = document.getElementById(tid);
+        }
+        id_list[i] = tid;
+        if (tr.className) {
+            toHide = 0;
+        }
+    }
+    for (var i = 0; i < count; i++) {
+        tid = id_list[i];
+        if (toHide) {
+            document.getElementById('div_'+tid).style.display = 'none'
+            document.getElementById(tid).className = 'hiddenRow';
+        }
+        else {
+            document.getElementById(tid).className = '';
+        }
+    }
+}
+
+
+function showTestDetail(div_id){
+    var details_div = document.getElementById(div_id)
+    var displayState = details_div.style.display
+    // alert(displayState)
+    if (displayState != 'block' ) {
+        displayState = 'block'
+        details_div.style.display = 'block'
+    }
+    else {
+        details_div.style.display = 'none'
+    }
+}
+
+
+function html_escape(s) {
+    s = s.replace(/&/g,'&amp;');
+    s = s.replace(/</g,'&lt;');
+    s = s.replace(/>/g,'&gt;');
+    return s;
+}
+
+/* obsoleted by detail in <div>
+function showOutput(id, name) {
+    var w = window.open("", //url
+                    name,
+                    "resizable,scrollbars,status,width=800,height=450");
+    d = w.document;
+    d.write("<pre>");
+    d.write(html_escape(output_list[id]));
+    d.write("\n");
+    d.write("<a href='javascript:window.close()'>close</a>\n");
+    d.write("</pre>\n");
+    d.close();
+}
+*/
+--></script>
+
+<div class='heading'>
+<h1>讲师评价系统</h1>
+<p class='attribute'><strong>Start Time:</strong> 2021-03-02 11:23:17</p>
+<p class='attribute'><strong>Duration:</strong> 0:00:00.419749</p>
+<p class='attribute'><strong>Status:</strong> Pass 9</p>
+
+<p class='description'></p>
+</div>
+
+
+
+<p id='show_detail_line'>Show
+<a href='javascript:showCase(0)'>Summary</a>
+<a href='javascript:showCase(1)'>Failed</a>
+<a href='javascript:showCase(2)'>All</a>
+</p>
+<table id='result_table'>
+<colgroup>
+<col align='left' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+</colgroup>
+<tr id='header_row'>
+    <td>Test Group/Test case</td>
+    <td>Count</td>
+    <td>Pass</td>
+    <td>Fail</td>
+    <td>Error</td>
+    <td>View</td>
+</tr>
+
+<tr class='passClass'>
+    <td>teachertest.testteacher</td>
+    <td>9</td>
+    <td>9</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c1',9)">Detail</a></td>
+</tr>
+
+<tr id='pt1.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>testFindAllTeacher</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.1')" >
+        pass</a>
+
+    <div id='div_pt1.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt1.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt1.1: "[{\"address\":\"沙河\",\"age\":28,\"classname\":\"测试开发班（自动化）\",\"email\":\"13552648187@163.com\",\"id\":15,\"loginname\":\"qiaoyueyang\",\"password\":\"21232F297A57A5A743894A0E4A801FC3\",\"phoneNumber\":\"13552648187\",\"registerDate\":1570550400000,\"sex\":\"女\",\"teacherName\":\"乔越洋\",\"tid\":\"01u91u34s9dqu49qusk492u593u2\"},{\"address\":\"沙河\",\"age\":28,\"classname\":\"测试开发班\",\"email\":\"13552648187@163.com\",\"id\":12,\"loginname\":\"zhangdianlu\",\"password\":\"21232F297A57A5A743894A0E4A801FC3\",\"phoneNumber\":\"13552648187\",\"registerDate\":1570550400000,\"sex\":\"男\",\"teacherName\":\"张典路\",\"tid\":\"18p0y8trm18to1t8181ir8r1uadf\"},{\"classname\":\"Java开发班\",\"id\":16,\"loginname\":\"liuxu\",\"password\":\"21232F297A57A5A743894A0E4A801FC3\",\"teacherName\":\"刘旭\",\"tid\":\"1sd5fd1f351fg35sd1f35ads\"},{\"address\":\"沙河\",\"age\":28,\"classname\":\"测试开发班\",\"email\":\"13552648187@163.com\",\"id\":13,\"loginname\":\"caoshiming\",\"password\":\"21232F297A57A5A743894A0E4A801FC3\",\"phoneNumber\":\"13552648187\",\"registerDate\":1570550400000,\"sex\":\"男\",\"teacherName\":\"曹士明\",\"tid\":\"23f5202dfu2d0834fydku09u4092\"},{\"address\":\"沙河\",\"age\":28,\"classname\":\"Java开发班\",\"email\":\"13552648187@163.com\",\"id\":9,\"loginname\":\"jiasheng\",\"password\":\"21232F297A57A5A743894A0E4A801FC3\",\"phoneNumber\":\"13552648187\",\"registerDate\":1570550400000,\"sex\":\"男\",\"teacherName\":\"贾生\",\"tid\":\"a4t8fa98sd8ag4ar8fd4a8s4df8a\"},{\"address\":\"沙河\",\"age\":28,\"classname\":\"UI全栈设计班\",\"email\":\"13552648187@163.com\",\"id\":10,\"loginname\":\"liyan\",\"password\":\"21232F297A57A5A743894A0E4A801FC3\",\"phoneNumber\":\"13552648187\",\"registerDate\":1570550400000,\"sex\":\"女\",\"teacherName\":\"李艳\",\"tid\":\"a84f8gf8ads4f8asfg48a42af84d\"},{\"address\":\"沙河\",\"age\":28,\"classname\":\"测试开发班（性能、接口）\",\"email\":\"13552648187@163.com\",\"id\":14,\"loginname\":\"chenyongjie\",\"password\":\"21232F297A57A5A743894A0E4A801FC3\",\"phoneNumber\":\"13552648187\",\"registerDate\":1570550400000,\"sex\":\"男\",\"teacherName\":\"陈永杰\",\"tid\":\"dy1584df8yf8duk429tu09s91j43\"},{\"address\":\"沙河\",\"age\":28,\"classname\":\"UI全栈设计班\",\"email\":\"13552648187@163.com\",\"id\":11,\"loginname\":\"tonghe\",\"password\":\"21232F297A57A5A743894A0E4A801FC3\",\"phoneNumber\":\"13552648187\",\"registerDate\":1570550400000,\"sex\":\"女\",\"teacherName\":\"佟贺\",\"tid\":\"net0s5cv0h5t0v5s01rc05cr6jha\"}]"
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt1.2' class='hiddenRow'>
+    <td class='none'><div class='testcase'>testfindAllCourse</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.2')" >
+        pass</a>
+
+    <div id='div_pt1.2' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt1.2').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt1.2: [{"cid":"0d4i194u5923194du49u9113","courseName":"测试开发","id":4},{"cid":"0f8c6c79d2754b7ea4bfa77be0cddd8d","courseName":"000","descri":"","id":17},{"cid":"1902780fa8674ee19af447f22914adc2","courseName":"舞蹈","descri":"好","id":23},{"cid":"1d04i194nu943udg9ruk293d","courseName":"安全渗透测试","id":6},{"cid":"1s231c412u5094ud910u094u","courseName":"Python自动化","id":5},{"cid":"3351cf585584496abb66f36bea6541a1","courseName":"LOL最强王者培训课程","descri":"","id":20},{"cid":"4856d0fe146243ea9f02c47d495c5a9b","courseName":"123","descri":"嗷嗷嗷","id":16},{"cid":"4a24ebd501ab49009d392483cd47690e","courseName":"英语","descri":"","id":13},{"cid":"64c040b9250c4138af75b07b71ff5a3a","courseName":"Java","descri":"","id":18},{"cid":"76a114cb837c42daa0f15267d99232c9","courseName":"刺激战场","descri":"不要怂！一起上","id":21},{"cid":"79a34b28c08f494b93fae0331867fc13","courseName":"java入门到住院","descri":"","id":14},{"cid":"8c846c9179564730a0a99aa18511f79f","courseName":"1","descri":"","id":15},{"cid":"99d2871ef7394cbeb595ffcd36b45b37","courseName":"高数","descri":"啦啦啦","id":22},{"cid":"a1sdfa8dfa5g4asd8f4a5sdf","courseName":"JavaEE+分布式开发","id":2},{"cid":"b55bbe1df9c14a029f0b38e756d7b3ac","courseName":"语文","descri":"","id":12},{"cid":"b8f50382bcf8421f8c651250009205e0","courseName":"接口自动化","descri":"","id":9},{"cid":"b93a781864004dd0a41e407fae20ba09","courseName":"数学","descri":"","id":10},{"cid":"ded1220fd4b646528bf44a47ef88801e","courseName":"生物","descri":"","id":11},{"cid":"eea9b65510e043ed8bfa0911479aaddd","courseName":"化学","descri":"","id":19},{"cid":"qurqurq9i20934u20934u9vn","courseName":"UI全栈设计","id":3}]
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt1.3' class='hiddenRow'>
+    <td class='none'><div class='testcase'>testfindAllMenu</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.3')" >
+        pass</a>
+
+    <div id='div_pt1.3' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt1.3').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt1.3: [{"children":[{"iconCls":"icon-modify","id":"101","pid":"100","rowid":"2","text":"修改个人信息","url":"stu_jsp/modifyInfo.jsp"}],"iconCls":"icon-man","id":"100","rowid":"1","text":"修改"},{"children":[{"iconCls":"icon-friend","id":"201","pid":"200","rowid":"5","text":"所有好友","url":"stu_jsp/show_friend.jsp"}],"iconCls":"icon-man","id":"200","rowid":"3","text":"好友"},{"children":[{"iconCls":"icon-about","id":"301","pid":"300","rowid":"7","text":"关于狼腾测试员","url":"common/page_guanyu.jsp"}],"iconCls":"icon-about","id":"300","rowid":"6","text":"关于","url":""}]
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt1.4' class='hiddenRow'>
+    <td class='none'><div class='testcase'>testfindAllPicture</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.4')" >
+        pass</a>
+
+    <div id='div_pt1.4' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt1.4').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt1.4: [{"describtion":"由jason提供","id":"1","isSystem":false,"picturePath":"img/picture/summer.jpg","pid":"aasdfafas3243g4g0a5sg18df1sas2"},{"describtion":"系统默认头像","id":"2","isSystem":false,"picturePath":"img/picture/default.jpg","pid":"afda484fda8dfag84af8da84a8df4a"},{"describtion":"狗子","id":"3","isSystem":false,"picturePath":"img/picture/dog.jpg","pid":"82ga48ds2fa48dsf4a8g2a8sf84as2"},{"describtion":"企图卖萌","id":"4","isSystem":false,"picturePath":"img/picture/meng.jpg","pid":"4as5fa1sg1a8sdf1a7gqw8ega8f1a8"},{"describtion":"android黑客","id":"5","isSystem":false,"picturePath":"img/picture/hacker.jpg","pid":"5asd5f8adfa8df5a8sfda28a4f82a2"},{"describtion":"carton狗","id":"6","isSystem":false,"picturePath":"img/picture/cato_dog.jpg","pid":"asdfasdfa8g48fa4s8ag4a8sf4af0s"},{"describtion":"猫","id":"7","isSystem":false,"picturePath":"img/picture/cat.jpg","pid":"asd1f8a181fas8dfad8sf1a0fa5a05"},{"describtion":"小海豹","id":"8","isSystem":false,"picturePath":"img/picture/bao.jpg","pid":"0fasf5a0f5ag5afd15afd10a1s8f15"},{"id":"104","isSystem":true,"picturePath":"img/picture/4/3/03811874e18e4a3c9865c25808ae15a4.jpg","pid":"a1affb8277174eb78632aa113f1f00fe","size":50382},{"id":"105","isSystem":true,"picturePath":"img/picture/b/8/1e95a486836b4bfeb8266abe55fb1cdb.jpg","pid":"87690ad7e03446c89c2ac3d84c55b5bf","size":12426},{"id":"106","isSystem":true,"picturePath":"img/picture/e/8/29c3f0c838d34aa7930cc0bea2129ab4.jpg","pid":"1be00f40a2c6400f94d7a15aa838cc94","size":7054},{"id":"107","isSystem":true,"picturePath":"img/picture/8/1/076ad4bf88094e6189a481085b39f0d1.jpg","pid":"3b6a170cee3440ba9e13cfc33d6b608e","size":25946},{"id":"108","isSystem":true,"picturePath":"img/picture/4/3/6ec5afc0b5b64ce28189c853a58e54c1.jpg","pid":"4987079fddf24f429dbf0678156aa203","size":57053},{"id":"109","isSystem":true,"picturePath":"img/picture/c/9/f0beeeff8558441895d5bc73c37ef4a7.jpg","pid":"d242e6650bfd43bfa234ca164ef3a3e5","size":4365},{"id":"110","isSystem":true,"picturePath":"img/picture/b/0/944e2536807948d891ad3e1275067113.jpg","pid":"f86f1daa68af4157aa4f85badd0b4401","size":9568},{"id":"111","isSystem":true,"picturePath":"img/picture/e/1/ddb8c792c733431fbedbefcc37098b1e.jpg","pid":"033140f16cc6492ebca3f9018f04a6c3","size":18309},{"id":"112","isSystem":true,"picturePath":"img/picture/7/5/d377f22c24ef42e0b963cae52efd04cf.jpg","pid":"b3f31189e84f46ca8ffa06386257a3c8","size":7103},{"id":"113","isSystem":true,"picturePath":"img/picture/e/1/e228caf8bc53460abff76218af558214.jpg","pid":"ccf913103970436b8dd31c0797bffcc5","size":18309},{"id":"114","isSystem":true,"picturePath":"img/picture/c/9/1107cb2201ba456fb1d3f11106f5ea8d.jpg","pid":"57e4771949544ac49dfdf13acc318e22","size":4365},{"id":"115","isSystem":true,"picturePath":"img/picture/5/0/db85c352b5054377b45a8fc704736bcc.jpg","pid":"2549b884c6724196a915de4ad25e37d8","size":43493},{"id":"116","isSystem":true,"picturePath":"img/picture/1/2/d690e41af98c48f389521c1eb2d8efcb.jpg","pid":"3f4c595743714ffea4a13e8953499673","size":22999},{"id":"117","isSystem":true,"picturePath":"img/picture/b/3/13c853686c93476a938d9900c92dd507.jpg","pid":"498a3b5c28834bbbb4040168d6688112","size":77855},{"id":"118","isSystem":true,"picturePath":"img/picture/1/9/983923c134e14e07b502e08838f15440.jpg","pid":"f134e1da142e4845a0c371c9dc365db5","size":28989},{"id":"119","isSystem":true,"picturePath":"img/picture/e/e/70d9fedc4c31471e9a79fe1e9b33f6a3.jpg","pid":"2573f048bf254057a6f5e6eabb0c7978","size":96621},{"id":"120","isSystem":true,"picturePath":"img/picture/7/f/c96c349c217c48acb2fbe7d034933b4b.jpg","pid":"f10cce19e4384c5ab208d7ace02cd149","size":49072},{"id":"121","isSystem":true,"picturePath":"img/picture/3/f/6a0040e0322f4267a3dad058efddbf43.jpg","pid":"88742d68d3ed41f4bee1ea79e4cbb2bc","size":94766},{"id":"122","isSystem":true,"picturePath":"img/picture/9/4/bf1984717ab94ba59ff18c6a2fed2297.jpg","pid":"7d093f495f8d4b568c9692209703d60a","size":35269},{"id":"123","isSystem":true,"picturePath":"img/picture/5/2/b09e1fb393b54fd1a43df066122594cb.jpg","pid":"14ea2b09b28b4867a58b4d625ffef102","size":91199},{"id":"124","isSystem":true,"picturePath":"img/picture/e/2/3461f3c2d6d6482d9e9eac387ce743bf.jpg","pid":"15335534dc7446bbb32257309f031710","size":94766}]
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt1.5' class='hiddenRow'>
+    <td class='none'><div class='testcase'>testfindAllStudent</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.5')" >
+        pass</a>
+
+    <div id='div_pt1.5' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt1.5').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt1.5: [{"address":"","age":52,"carte":"I'm monther fuck  sniper;","classname":"Python自动化","email":"13552648188@qq.com","graduation":true,"id":8,"loginname":"zzy","phoneNumber":"13524626496","picturePath":"img/picture/bao.jpg","registerDate":1583337600000,"sex":"女","uid":"e8a42ef0fc684bfd94e0f25af59d8917","username":"jason"},{"address":"asdfasdfsa","age":56,"classname":"JavaEE+分布式开发","email":"1331651@qq.com","graduation":true,"id":8,"loginname":"贾生","phoneNumber":"15569656565","picturePath":"img/picture/bao.jpg","registerDate":1584892800000,"sex":"男","uid":"083e6b4ff54841e8a46ecdbc7a8cc290","username":"贾生"},{"address":"","age":20,"carte":"","classname":"测试开发","email":"228161485@qq.com","graduation":true,"id":8,"loginname":"228161485@qq。com","phoneNumber":"17370905219","picturePath":"img/picture/bao.jpg","registerDate":1584979200000,"sex":"男","uid":"b01cc4cf09464035b5305e5ef75ca55a","username":"刘梦龙"},{"address":"","age":22,"classname":"测试开发","email":"942158038@qq.com","graduation":true,"id":8,"loginname":"Cristiano","phoneNumber":"13231955483","picturePath":"img/picture/bao.jpg","registerDate":1584979200000,"sex":"男","uid":"5e61264a931140418de997a200b89fd9","username":"张谦"},{"address":"河北省石家庄市赵县安家庄","age":21,"classname":"测试开发","email":"909006314@qq.com","graduation":true,"id":8,"loginname":"15227138931","phoneNumber":"15227138931","picturePath":"img/picture/bao.jpg","registerDate":1584979200000,"sex":"男","uid":"d024f464bde0415b920c8229ed14dd46","username":"安子凡"},{"address":"北京昌平育荣教育园","age":24,"classname":"测试开发","email":"1309254470@qq.cm","graduation":false,"id":8,"loginname":"Coco","phoneNumber":"18838913223","picturePath":"img/picture/bao.jpg","registerDate":1584979200000,"sex":"女","uid":"e46bf6d44f0b4cc7a28325bedc80050a","username":"程可可"},{"address":"","classname":"测试开发","email":"55375019@qq.com","graduation":false,"id":8,"loginname":"15132973378","phoneNumber":"15132973378","picturePath":"img/picture/bao.jpg","registerDate":1584979200000,"sex":"男","uid":"ed1df3e743144316826284ee41b308e6","username":"张文博"},{"address":"河北邯郸","age":21,"classname":"测试开发","email":"2280875270@qq.com","graduation":true,"id":8,"loginname":"LiuBing","phoneNumber":"17332721227","picturePath":"img/picture/bao.jpg","registerDate":1584979200000,"sex":"男","uid":"0cd0d0ef8abd47b9a34ecd0f4f49069b","username":"刘冰"},{"address":"河北省唐山市丰润区","age":21,"classname":"测试开发","email":"1547532982@qq.com","graduation":false,"id":8,"loginname":"郭少文","phoneNumber":"15032549044","picturePath":"img/picture/bao.jpg","registerDate":1584979200000,"sex":"男","uid":"23fd4e48a1da4037bbdcaaf22a530b72","username":"郭少文"},{"address":"北京市昌平区沙河镇与红和教育园区","age":22,"classname":"测试开发","email":"845028021@qq.com","graduation":false,"id":8,"loginname":"845028021","phoneNumber":"17633231411","picturePath":"img/picture/bao.jpg","registerDate":1584979200000,"sex":"男","uid":"c346be169ac249ad9b2b3a74eb7c650d","username":"曹鹤飞"},{"address":"","age":20,"classname":"测试开发","email":"729068474@qq.com","graduation":false,"id":8,"loginname":"幽冥","phoneNumber":"17635731826","picturePath":"img/picture/bao.jpg","registerDate":1584979200000,"sex":"男","uid":"dd1e618166e64f5b87203a861f38200c","username":"王奇"},{"address":"","age":22,"classname":"测试开发","email":"2775474446@qq.com","graduation":false,"id":8,"loginname":"sususu","phoneNumber":"17822000250","picturePath":"img/picture/bao.jpg","registerDate":1584979200000,"sex":"男","uid":"cfe937b12c8645bda09c56c41d01ec92","username":"苏晓朋"},{"address":"","age":23,"classname":"测试开发","email":"1554844066@qq.com","graduation":false,"id":8,"loginname":"货拉拉","phoneNumber":"18920149773","picturePath":"img/picture/bao.jpg","registerDate":1584979200000,"sex":"男","uid":"b4b6fed4f2d14f5e920bae906c05204a","username":"庞炳超"},{"address":"河北省张家口市赤城县","age":23,"classname":"测试开发","email":"2468415787@qq.com","graduation":false,"id":8,"loginname":"zq","phoneNumber":"17332718420","picturePath":"img/picture/bao.jpg","registerDate":1584979200000,"sex":"男","uid":"a0a1afb33d5a4c93a6750646717bdb2c","username":"郑强"},{"address":"河北省廊坊市","age":21,"classname":"测试开发","email":"3195308701@qq.com","graduation":false,"id":8,"loginname":"gf","phoneNumber":"13513366825","picturePath":"img/picture/bao.jpg","registerDate":1584979200000,"sex":"男","uid":"16bc29f5b13d47e0ba5481697602e8da","username":"谷月"},{"address":"","age":21,"classname":"测试开发","email":"1051713345@qq.com","graduation":false,"id":8,"loginname":"liuxingyun","phoneNumber":"13121947276","picturePath":"img/picture/bao.jpg","registerDate":1584979200000,"sex":"男","uid":"42a1fe70d039446a84f5c487983e41f0","username":"刘星云"},{"address":"","age":19,"carte":"","classname":"测试开发","email":"2575357330@qq.com","graduation":false,"id":8,"loginname":"你瞅啥","phoneNumber":"13889414902","picturePath":"img/picture/bao.jpg","registerDate":1584979200000,"sex":"男","uid":"f0708337e58d4f3098866622a42d8dad","username":"杨小健"},{"address":"","age":222222,"classname":"JavaEE+分布式开发","email":"1448752577@qq.com","graduation":false,"id":8,"loginname":"123","phoneNumber":"17628196542","picturePath":"img/picture/bao.jpg","registerDate":1584979200000,"sex":"男","uid":"c810ee15dc3d49a1ab6c626bb61785e8","username":"唐肃"},{"address":"","age":24,"classname":"测试开发","email":"874655151@qq.com","graduation":true,"id":8,"loginname":"小Zz","phoneNumber":"15732685392","picturePath":"img/picture/bao.jpg","registerDate":1584979200000,"sex":"男","uid":"c0062479f23343aa9536c197bed96af3","username":"朱思钢"},{"address":"黑龙江","age":21,"classname":"测试开发","email":"1834117472@qq.com","graduation":true,"id":8,"loginname":"1834117472mhb","phoneNumber":"17336462787","picturePath":"img/picture/bao.jpg","registerDate":1584979200000,"sex":"男","uid":"22a091d1f42a40d4aa80c6436b8ef4cf","username":"马焕斌"},{"address":"","age":22,"classname":"JavaEE+分布式开发","email":"1224174298@qq.com","graduation":true,"id":8,"loginname":"ckk","phoneNumber":"18703471407","picturePath":"img/picture/bao.jpg","registerDate":1584979200000,"sex":"男","uid":"1c0bc06278a242dcba2356ec267e148e","username":"晁奎奎"},{"address":"","classname":"JavaEE+分布式开发","email":"2329849763@qq.com","graduation":false,"id":8,"loginname":"ztj","phoneNumber":"17302295290","picturePath":"img/picture/bao.jpg","registerDate":1584979200000,"sex":"男","uid":"baed6101b7b14911a9121d66aea685e0","username":"张庭嘉"},{"address":"河北张家口","age":23,"carte":"","classname":"测试开发","email":"1148572553@qq.com","graduation":false,"id":8,"loginname":"liujiacheng","phoneNumber":"18133842262","picturePath":"img/picture/bao.jpg","registerDate":1590595200000,"sex":"男","uid":"441a8a0004494585a78db731fb1d3a8b","username":"刘家成"},{"address":"","classname":"测试开发","email":"Anzifan@qq.com","graduation":false,"id":8,"loginname":"17332720302","phoneNumber":"17332720302","picturePath":"img/picture/bao.jpg","registerDate":1590595200000,"sex":"男","uid":"2578ce8b85ce4dabada0fc7353c237b0","username":"安子凡"},{"address":"","classname":"测试开发","email":"847358360@qq.com","graduation":false,"id":8,"loginname":"L","phoneNumber":"15097874979","picturePath":"img/picture/bao.jpg","registerDate":1590595200000,"sex":"男","uid":"d0de7c16067d4b28b96f8aff96a2b32d","username":"卢洪洋"},{"address":"育荣教育园区","age":18,"classname":"测试开发","email":"3389815747@qq.com","graduation":false,"id":8,"loginname":"子杰","phoneNumber":"17600080389","picturePath":"img/picture/bao.jpg","registerDate":1590595200000,"sex":"男","uid":"3211cda9d94b4d5fa2fc1c205167f7ec","username":"李杰"},{"address":"北京","age":22,"classname":"测试开发","email":"1340725871@qq.com","graduation":false,"id":8,"loginname":"王朔大爷","phoneNumber":"15630701020","picturePath":"img/picture/bao.jpg","registerDate":1590595200000,"sex":"男","uid":"266fd7d455ae417b951193c60966d43b","username":"王朔"},{"address":"河北","age":24,"classname":"Python自动化","email":"1343097432@qq.com","graduation":false,"id":8,"loginname":"zhangyongshuang","phoneNumber":"15633571883","picturePath":"img/picture/bao.jpg","registerDate":1590595200000,"sex":"女","uid":"f97d07100c924c00b46629d67023f32c","username":"张永双"},{"address":"北京市昌平区海牛大数据培训基地","age":20,"classname":"Python自动化","email":"1463359653@qq.com","graduation":false,"id":8,"loginname":"zhaonan","phoneNumber":"17612244282","picturePath":"img/picture/bao.jpg","registerDate":1590595200000,"sex":"女","uid":"ef45b1de836d4d13923214d331bbe4ee","username":"赵楠"},{"address":"","age":22,"classname":"测试开发","email":"1521987255@qq.com","graduation":false,"id":8,"loginname":"luhongyang","phoneNumber":"18134047961","picturePath":"img/picture/bao.jpg","registerDate":1597248000000,"sex":"男","uid":"436cf939dcda4113bee2fac8564abcec","username":"卢洪洋"},{"address":"41234","age":22,"classname":"测试开发","email":"23232@qq.com","graduation":false,"id":8,"loginname":"camille","phoneNumber":"15634557899","picturePath":"img/picture/bao.jpg","registerDate":1604419200000,"sex":"男","uid":"1ae81e227343411dbebfe338bbe98457","username":"camille"},{"address":"","age":22,"classname":"测试开发","email":"90565056@qq.com","graduation":false,"id":8,"loginname":"wsh","phoneNumber":"13021325528","picturePath":"img/picture/bao.jpg","registerDate":1604419200000,"sex":"男","uid":"ec374cb267504c41bfe0fcf00639d468","username":"王朔"},{"address":"","age":22,"carte":"","classname":"测试开发","email":"2513055887@qq.com","graduation":false,"id":8,"loginname":"mwj","phoneNumber":"18831359816","picturePath":"img/picture/bao.jpg","registerDate":1604505600000,"sex":"男","uid":"88da758d2bc3449889904a5c1766a9a5","username":"马文杰"},{"address":"无","age":22,"classname":"测试开发","email":"9056505@qq.com","graduation":false,"id":8,"loginname":"ws","phoneNumber":"13021325527","picturePath":"img/picture/bao.jpg","registerDate":1604505600000,"sex":"男","uid":"835feaac167f41639479ff4b738869c1","username":"王朔"},{"address":"","classname":"测试开发","email":"12345678@qq.com","graduation":true,"id":8,"loginname":"马文杰","phoneNumber":"13833561741","picturePath":"img/picture/bao.jpg","registerDate":1604505600000,"sex":"男","uid":"216192526dd944dcaece26d4fe230340","username":"123"},{"address":"","age":23,"carte":"","classname":"测试开发","email":"2863946574@qq.com","graduation":true,"id":8,"loginname":"lujiaqi","phoneNumber":"13522509406","picturePath":"img/picture/bao.jpg","registerDate":1609948800000,"sex":"男","uid":"19a70f9be80e454fb13c0aa88042f630","username":"陆佳琪"},{"address":"昌平","age":21,"carte":"非常好","classname":"测试开发","email":"2362464781@qq.com","graduation":true,"id":8,"loginname":"root11","phoneNumber":"15135587774","picturePath":"img/picture/bao.jpg","registerDate":1614009600000,"sex":"女","uid":"0f204a4874504acfb210af3d6e9e2604","username":"曹小霞"},{"address":"1111","age":22,"carte":"","classname":"测试开发","email":"780683395@qq.com","graduation":true,"id":8,"loginname":"liuyakang","phoneNumber":"15824700631","picturePath":"img/picture/bao.jpg","registerDate":1614096000000,"sex":"男","uid":"09e7997473e94b91a665d06a062a968c","username":"刘亚康"},{"address":"","age":27,"carte":"","classname":"测试开发","email":"1981288305@qq.com","graduation":true,"id":124,"loginname":"wuqiaoxin","phoneNumber":"18321456979","picturePath":"img/picture/e/2/3461f3c2d6d6482d9e9eac387ce743bf.jpg","registerDate":1614009600000,"sex":"女","uid":"d67bee4a3058444480d73072fa333e62","username":"吴乔歆"},{"address":"","age":24,"carte":"","classname":"测试开发","email":"1020397800@qq.com","graduation":true,"id":106,"loginname":"liuricheng","phoneNumber":"15132009507","picturePath":"img/picture/e/8/29c3f0c838d34aa7930cc0bea2129ab4.jpg","registerDate":1609948800000,"sex":"男","uid":"8b248015ee2344a68fb6def5c7b17dd8","username":"刘日成"},{"address":"","age":27,"carte":"","classname":"测试开发","email":"710266001@qq.com","graduation":true,"id":119,"loginname":"stars","phoneNumber":"15072397904","picturePath":"img/picture/e/e/70d9fedc4c31471e9a79fe1e9b33f6a3.jpg","registerDate":1614009600000,"sex":"男","uid":"a4317730c5f94bf48f4ef86a7f5eb9e5","username":"黎达"},{"address":"育荣教育园区","age":23,"carte":"","classname":"测试开发","email":"1010454316@qq.com","graduation":true,"id":107,"loginname":"LIXIAOSHUAI","phoneNumber":"18063265928","picturePath":"img/picture/8/1/076ad4bf88094e6189a481085b39f0d1.jpg","registerDate":1609948800000,"sex":"男","uid":"a57a9d3c1991400d8c92938ec4d256ea","username":"李晓帅"},{"address":"","age":22,"carte":"","classname":"测试开发","email":"505602106@qq.com","graduation":true,"id":108,"loginname":"adx","phoneNumber":"13323045331","picturePath":"img/picture/4/3/6ec5afc0b5b64ce28189c853a58e54c1.jpg","registerDate":1614009600000,"sex":"男","uid":"388427fade1f4ed2b5145b31f5dcde4d","username":"adx"},{"address":"石家庄","age":56,"carte":"秋名山周杰伦","classname":"测试开发","email":"21173890042@qq.com","graduation":true,"id":108,"loginname":"yuxin","phoneNumber":"13723887499","picturePath":"img/picture/4/3/6ec5afc0b5b64ce28189c853a58e54c1.jpg","registerDate":1614009600000,"sex":"男","uid":"8a7c2d4e0be5483f896eb317dff1900c","username":"于锌"},{"address":"北京市昌平区育荣教育园区狼腾测试员","age":25,"carte":"","classname":"测试开发","email":"154765370@qq.com","graduation":true,"id":117,"loginname":"马健","phoneNumber":"15133308246","picturePath":"img/picture/b/3/13c853686c93476a938d9900c92dd507.jpg","registerDate":1614009600000,"sex":"男","uid":"4dc9d0fb8b834f7e81328bfffd6981ab","username":"马健"},{"address":"北京","age":56,"carte":"就是这么牛逼！来咬我呀！","classname":"Java从入门到入土","email":"13552648187@qq.com","graduation":true,"id":4,"loginname":"jason","phoneNumber":"13552648187","picturePath":"img/picture/meng.jpg","registerDate":1583251200000,"sex":"女","uid":"759434bd42e646d7af2babbe252edd8e","username":"贾生"},{"address":"","age":18,"carte":"","classname":"测试开发","email":"222915798@qq.com","graduation":true,"id":114,"loginname":"00","phoneNumber":"18333337761","picturePath":"img/picture/c/9/1107cb2201ba456fb1d3f11106f5ea8d.jpg","registerDate":1614096000000,"sex":"男","uid":"2ad296b8aea941e2a6c987579ff6ced7","username":"11"},{"address":"","age":23,"carte":"闇の力を秘めし鍵よ、真の姿を我の前に示せ！\r\n契約のもと桜が命じる、レリーズ！","classname":"语文","email":"1021295302@qq.com","graduation":true,"id":122,"loginname":"yjl","phoneNumber":"15901377304","picturePath":"img/picture/9/4/bf1984717ab94ba59ff18c6a2fed2297.jpg","registerDate":1614009600000,"sex":"男","uid":"ab869c039bc24247b22f2623733170c3","username":"姚佳龙"},{"address":"海牛大数据","age":23,"carte":"","classname":"测试开发","email":"1814281648@qq.com","graduation":true,"id":3,"loginname":"weipengzhen2","phoneNumber":"13653393775","picturePath":"img/picture/dog.jpg","registerDate":1604505600000,"sex":"男","uid":"bd7643814f17439097e19c9a546918a4","username":"赵世斌"},{"address":"河北邯郸","age":19,"carte":"0000","classname":"测试开发","email":"2784837735@qq.com","graduation":true,"id":3,"loginname":"zhengshuhang","phoneNumber":"18501280410","picturePath":"img/picture/dog.jpg","registerDate":1604505600000,"sex":"男","uid":"e7fd38d5e5334b1f9bcd75d2560b0206","username":"郑树航"},{"address":"江苏南通","age":66,"carte":"","email":"1447682287@qq.com","graduation":true,"id":3,"loginname":"zjw150816","phoneNumber":"18662886910","picturePath":"img/picture/dog.jpg","registerDate":1609948800000,"sex":"男","uid":"b4549cf49d3348bab2face530844e43e","username":"张伟"},{"address":"","age":23,"carte":"","classname":"测试开发","email":"852761403@qq.com","graduation":true,"id":3,"loginname":"lihancong","phoneNumber":"13155905262","picturePath":"img/picture/dog.jpg","registerDate":1609948800000,"sex":"男","uid":"d3a0dfad68d14d46995c8940bcf7bde8","username":"李晗聪"},{"address":"","age":22,"carte":"","classname":"测试开发","email":"2867242015@qq.com","graduation":true,"id":3,"loginname":"zhangyan","phoneNumber":"17320082172","picturePath":"img/picture/dog.jpg","registerDate":1609948800000,"sex":"女","uid":"1289125d8429470e998ad392835c0fff","username":"zhangyan"},{"address":"河南","age":22,"carte":"","classname":"测试开发","email":"1877762890@qq.com","graduation":true,"id":3,"loginname":"刘营营","phoneNumber":"15538183791","picturePath":"img/picture/dog.jpg","registerDate":1609948800000,"sex":"女","uid":"d98293bae120459cbeb462589afc4b24","username":"刘营营"},{"address":"河北邯郸","age":21,"classname":"测试开发","email":"2234716090@qq.com","graduation":true,"id":105,"loginname":"郭翔","phoneNumber":"15233845644","picturePath":"img/picture/b/8/1e95a486836b4bfeb8266abe55fb1cdb.jpg","registerDate":1604419200000,"sex":"男","uid":"e269ec89c0474be992968a6ed0ca3777","username":"郭翔"},{"address":"","classname":"测试开发","email":"90565056@qq.cm","graduation":true,"id":104,"loginname":"wpz1","phoneNumber":"13021325531","picturePath":"img/picture/4/3/03811874e18e4a3c9865c25808ae15a4.jpg","registerDate":1605110400000,"sex":"男","uid":"c7659f4235364e40a231eafef502c473","username":"魏"},{"address":"北京市昌平区","age":22,"carte":"","classname":"测试开发","email":"2398710377@qq.com","graduation":true,"id":104,"loginname":"caodongxue","phoneNumber":"15097321702","picturePath":"img/picture/4/3/03811874e18e4a3c9865c25808ae15a4.jpg","registerDate":1609948800000,"sex":"女","uid":"42064a0e22c94f2ba86ea26b8fea5220","username":"曹东雪"},{"address":"河北保定","age":22,"carte":"茫茫然","classname":"测试开发","email":"272678766@qq.com","graduation":true,"id":1,"loginname":"汤朋","phoneNumber":"15833232055","picturePath":"img/picture/summer.jpg","registerDate":1584979200000,"sex":"男","uid":"a4323dcaa2ea4b658abd07bfe7f71094","username":"汤朋"},{"address":"","age":55,"carte":"","classname":"测试开发","email":"617331568@163.com","graduation":true,"id":1,"loginname":"tao xiuqin","phoneNumber":"15801541027","picturePath":"img/picture/summer.jpg","registerDate":1604419200000,"uid":"4ee3d325c6f74cda813551f510f66c8f","username":"陶秀琴"},{"address":"海牛大数据","age":22,"classname":"测试开发","email":"905650563@qq.com","graduation":true,"id":1,"loginname":"wpz","phoneNumber":"13021325529","picturePath":"img/picture/summer.jpg","registerDate":1604419200000,"sex":"男","uid":"eeba0fb882ea4aee88866aedcb3a1910","username":"魏鹏臻"},{"address":"海牛","age":22,"classname":"测试开发","email":"9056505631@qq.com","graduation":true,"id":1,"loginname":"wwippo","phoneNumber":"13021325530","picturePath":"img/picture/summer.jpg","registerDate":1604505600000,"sex":"男","uid":"f44cc28f47c0415a9d9b020e4c784a43","username":"魏鹏臻"},{"address":"北京茶长安街","age":29,"classname":"JavaEE+分布式开发","email":"888888888@qq.com","graduation":false,"id":1,"loginname":"python鼻祖","phoneNumber":"18888888888","picturePath":"img/picture/summer.jpg","registerDate":1604505600000,"sex":"男","uid":"d31f8feaf59d4167ba2449bae43124e8","username":"TOP"},{"address":"北京茶长安街","age":29,"classname":"JavaEE+分布式开发","email":"888888888@qq.com","graduation":true,"id":1,"loginname":"python鼻祖","phoneNumber":"18888888888","picturePath":"img/picture/summer.jpg","registerDate":1604505600000,"sex":"男","uid":"98dc963538b54c9298128262d75f35ae","username":"TOP"},{"address":"北京茶长安街","age":29,"classname":"JavaEE+分布式开发","email":"888888888@qq.com","graduation":true,"id":1,"loginname":"top","phoneNumber":"18888888888","picturePath":"img/picture/summer.jpg","registerDate":1604505600000,"sex":"男","uid":"e1eba0a9b2524aba864662ce4f3ffd68","username":"TOP"},{"address":"","age":18,"classname":"测试开发","email":"123456@qq.com","graduation":true,"id":1,"loginname":"小黑","phoneNumber":"18736841371","picturePath":"img/picture/summer.jpg","registerDate":1609948800000,"sex":"女","uid":"c7c7c967c38c4d4590e496f0ca6fc1e1","username":"小黑"},{"address":"c","age":21,"classname":"测试开发","email":"2362464782@qq.com","graduation":true,"id":1,"loginname":"root111","phoneNumber":"15135587771","picturePath":"img/picture/summer.jpg","registerDate":1614009600000,"sex":"女","uid":"d3fd19080a094238a331aeeb6a329cb8","username":"曹小霞"},{"address":"","age":22,"classname":"测试开发","email":"2229157982@qq.com","graduation":false,"id":1,"loginname":"陈晓玲","phoneNumber":"18333337765","picturePath":"img/picture/summer.jpg","registerDate":1614009600000,"sex":"女","uid":"5f56ad928eb6451abf13d5cab2764497","username":"11"},{"address":"意大利","age":23,"classname":"安全渗透测试","email":"1672638736273@qq.com","graduation":true,"id":1,"loginname":"ZHANGSAN","phoneNumber":"15361527637","picturePath":"img/picture/summer.jpg","registerDate":1614096000000,"sex":"女","uid":"3052ea5a4b4e468fa999d8d9732e9b3e","username":"张三"},{"address":"","age":22,"classname":"测试开发","email":"50560210@qq.com","graduation":true,"id":1,"loginname":"abc","phoneNumber":"13323045332","picturePath":"img/picture/summer.jpg","registerDate":1614096000000,"sex":"男","uid":"fe74ae87243c4fd5a7a7deab1663a3d4","username":"aaa"},{"address":"","age":22,"classname":"测试开发","email":"5056021@qq.com","graduation":true,"id":1,"loginname":"acacia","phoneNumber":"13323045333","picturePath":"img/picture/summer.jpg","registerDate":1614096000000,"sex":"男","uid":"cc12ae0b7d474fec9f83b907fa37bede","username":"kakak"},{"address":"北京市昌平区","age":23,"classname":"测试开发","email":"141218259@qq.com","graduation":true,"id":1,"loginname":"wrm1","phoneNumber":"15075342102","picturePath":"img/picture/summer.jpg","registerDate":1614096000000,"sex":"女","uid":"25454f4b434b4479856f097aa0e9891c","username":"王瑞敏1"},{"address":"!!","age":30,"classname":"测试开发","email":"1233@163.com","graduation":true,"id":1,"loginname":"111","phoneNumber":"15646852945","picturePath":"img/picture/summer.jpg","registerDate":1614096000000,"sex":"男","uid":"fbd2bc053d424640be2442dbab797550","username":"666"},{"address":"","age":22,"classname":"测试开发","email":"505602@qq.com","graduation":true,"id":1,"loginname":"阿里看见你会受到k","phoneNumber":"13323045330","picturePath":"img/picture/summer.jpg","registerDate":1614096000000,"sex":"女","uid":"6620b2c92cf44b22a69d09234a1afeea","username":"ADASA"},{"address":"北京市昌平区","age":55,"classname":"测试开发","email":"1412182574@qq.com","graduation":true,"id":1,"loginname":"222","phoneNumber":"18910554447","picturePath":"img/picture/summer.jpg","registerDate":1614096000000,"sex":"男","uid":"922855478a58499b911e70c5f8582fc9","username":"333"},{"address":"!!","age":34,"classname":"Python自动化","email":"12333@163.com","graduation":true,"id":1,"loginname":"11111","phoneNumber":"15646852946","picturePath":"img/picture/summer.jpg","registerDate":1614096000000,"sex":"男","uid":"2f5d45ad85994039bb1e504886a7a85f","username":"1233"},{"address":"","age":24,"classname":"java入门到住院","email":"12338@163.com","graduation":true,"id":1,"loginname":"234234234","phoneNumber":"15646852947","picturePath":"img/picture/summer.jpg","registerDate":1614096000000,"sex":"男","uid":"0fea8606692941baa839c432e88e7e16","username":"234234234"},{"address":"啦啦","age":18,"classname":"测试开发","email":"123456987@qq.com","graduation":true,"id":1,"loginname":"啦啦啦","phoneNumber":"13931326364","picturePath":"img/picture/summer.jpg","registerDate":1614096000000,"sex":"男","uid":"5a5ea8cb262f4c88a32dcc24e737eb6c","username":"啦啦"},{"address":"","age":18,"classname":"测试开发","email":"22291579@qq.com","graduation":true,"id":1,"loginname":"python","phoneNumber":"18333337764","picturePath":"img/picture/summer.jpg","registerDate":1614528000000,"sex":"男","uid":"255f7fd2a8cd493a82c07eac7b9eaf6e","username":"11"},{"address":"","age":18,"carte":"","classname":"测试开发","email":"2229157983@qq.com","graduation":false,"id":2,"loginname":"root","phoneNumber":"18333846653","picturePath":"img/picture/default.jpg","registerDate":1614009600000,"sex":"女","uid":"25574240608f45038fe7ab5999da823a","username":"陈晓玲"},{"address":"北京市","age":20,"carte":"","classname":"测试开发","email":"2075518412@qq.com","graduation":true,"id":7,"loginname":"洪小雅","phoneNumber":"15529052545","picturePath":"img/picture/cat.jpg","registerDate":1609948800000,"sex":"女","uid":"7126fd7e9a1f40079649f16128f08a66","username":"洪小雅"},{"address":"北京市昌平区流星花园","age":22,"carte":"","classname":"测试开发","email":"1402162946@qq.com","graduation":true,"id":7,"loginname":"何登勇","phoneNumber":"18744931412","picturePath":"img/picture/cat.jpg","registerDate":1609948800000,"sex":"男","uid":"d9123e6e6452432bb47dbad17985d760","username":"何登勇"},{"address":"??","age":18,"carte":"","classname":"测试开发","email":"2077758141@qq.com","graduation":true,"id":112,"loginname":"admin","phoneNumber":"15597040291","picturePath":"img/picture/7/5/d377f22c24ef42e0b963cae52efd04cf.jpg","registerDate":1593792000000,"sex":"男","uid":"7130bbf04f1e43f6abbeb0879c3fec03","username":"admin"},{"address":"昌平","age":21,"carte":"","classname":"测试开发","email":"2362464788@qq.com","graduation":true,"id":113,"loginname":"caoxiaoxia","phoneNumber":"15135587772","picturePath":"img/picture/e/1/e228caf8bc53460abff76218af558214.jpg","registerDate":1614096000000,"sex":"女","uid":"65cc2ed5bc644b57b9177a4502c1ac96","username":"曹小霞"},{"address":"北京市昌平区","age":23,"carte":"","classname":"测试开发","email":"1412182594@qq.com","graduation":true,"id":118,"loginname":"wrm","phoneNumber":"18910553447","picturePath":"img/picture/1/9/983923c134e14e07b502e08838f15440.jpg","registerDate":1614009600000,"sex":"女","uid":"bda89a157c5d4690ac93a784bbf0e898","username":"王瑞敏"}]
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt1.6' class='hiddenRow'>
+    <td class='none'><div class='testcase'>testgetTodeAllEvaluate</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.6')" >
+        pass</a>
+
+    <div id='div_pt1.6' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt1.6').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt1.6: 
+
+
+
+&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;base href="http://www.jasonisoft.cn:8080/HKR/"&gt;
+    
+    &lt;title&gt;HKR.狼腾测试员综合办公系统  |  教师登录&lt;/title&gt;
+	&lt;meta http-equiv="pragma" content="no-cache"&gt;
+	&lt;meta http-equiv="cache-control" content="no-cache"&gt;
+	&lt;meta http-equiv="expires" content="0"&gt;    
+	&lt;meta http-equiv="keywords" content="keyword1,keyword2,keyword3"&gt;
+	&lt;meta http-equiv="description" content="This is my page"&gt;
+	 &lt;link rel="shortcut icon" href="/HKR/icon/favicon.ico;jsessionid=A60B1A4B8CBCE933CB18EF5BE06817F6" type="image/x-icon" /&gt;
+
+	&lt;link rel="stylesheet" href="./css/login.css"&gt;
+	&lt;script type="text/javascript" src="/HKR/js/jquery-3.2.1.min.js;jsessionid=A60B1A4B8CBCE933CB18EF5BE06817F6"&gt;&lt;/script&gt;
+	&lt;script type="text/javascript" src="/HKR/admin_jsps/js/tea_login.js;jsessionid=A60B1A4B8CBCE933CB18EF5BE06817F6"&gt;&lt;/script&gt;
+	
+  &lt;/head&gt;
+  
+  &lt;body&gt;
+  
+  &lt;style&gt;
+  	.right{
+  		margin:0 auto;
+  	}
+  &lt;/style&gt;
+   	 &lt;div class="dowebok" id="tea_bg"&gt;
+        &lt;div class="container"&gt;
+            &lt;div  class="right"&gt;
+                &lt;svg viewBox="0 0 320 300"&gt;
+                    &lt;defs&gt;
+                        &lt;linearGradient inkscape:collect="always" id="linearGradient" x1="13" y1="193.49992" x2="307"
+                            y2="193.49992" gradientUnits="userSpaceOnUse"&gt;
+                            &lt;stop style="stop-color:#ff00ff;" offset="0" id="stop876" /&gt;
+                            &lt;stop style="stop-color:#ff0000;" offset="1" id="stop878" /&gt;
+                        &lt;/linearGradient&gt;
+                    &lt;/defs&gt;
+                    &lt;path d="m 40,120.00016 239.99984,-3.2e-4 c 0,0 24.99263,0.79932 25.00016,35.00016 0.008,34.20084 -25.00016,35 -25.00016,35 h -239.99984 c 0,-0.0205 -25,4.01348 -25,38.5 0,34.48652 25,38.5 25,38.5 h 215 c 0,0 20,-0.99604 20,-25 0,-24.00396 -20,-25 -20,-25 h -190 c 0,0 -20,1.71033 -20,25 0,24.00396 20,25 20,25 h 168.57143" /&gt;
+                &lt;/svg&gt;
+            &lt;form action="TeacherServlet;jsessionid=A60B1A4B8CBCE933CB18EF5BE06817F6" method="post"  onsubmit="return login_check()"&gt;
+                &lt;div class="form" &gt;
+                	&lt;input type="hidden" name="method" value="login" /&gt;
+                    &lt;label for="loginname" id="msg_uname" style="color:red;"&gt;您还没有登录，别瞎转悠!&lt;/label&gt;
+                    &lt;input type="text" placeholder="教师登录名/手机" onfocus="$('#msg_uname').text('');" id="loginname" name="loginname" onblur="ajax_uname_check()"&gt;
+                    &lt;label for="password" id="msg_pwd"&gt;&lt;/label&gt;
+                    &lt;input type="password" placeholder="请输入密码" id="password" name="password" onfocus="$('#msg_pwd').text('');" onblur="passwd_check()"&gt;
+                    &lt;input type="submit" id="submit" value="登陆"&gt;
+                &lt;/div&gt;
+            &lt;/form&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    
+     &lt;script src="./js/login/anime.min.js"&gt;&lt;/script&gt;
+    &lt;script src="./js/login/index.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript"&gt;
+			 var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串  
+		     var isIE = userAgent.indexOf("compatible") &gt; -1 &amp;&amp; userAgent.indexOf("MSIE") &gt; -1; //判断是否IE&lt;11浏览器  
+		     var isEdge = userAgent.indexOf("Edge") &gt; -1 &amp;&amp; !isIE; //判断是否IE的Edge浏览器  
+		     var isIE11 = userAgent.indexOf("Trident") &gt; -1 || userAgent.indexOf("rv:11.0") &gt; -1;
+	         if(isIE11){
+	        	 window.location = "http://localhost:8080/HKR/error/browser.jsp";
+	        	 
+	         }
+		     if(isIE) {
+		         var reIE = new RegExp("MSIE (\\d+\\.\\d+);");
+		         reIE.test(userAgent);
+		         var fIEVersion = parseFloat(RegExp["$1"]);
+		         if(fIEVersion == 7 || fIEVersion == 8 || fIEVersion == 9 || fIEVersion == 10 || fIEVersion &lt; 7) {
+		        	 window.location = "http://localhost:8080/HKR/error/browser.jsp";
+		         }
+		     }
+		     
+		     
+	    	 var imgs = ["url(img/bg1.jpg)","url(img/bg2.jpg)","url(img/bg3.jpg)","url(img/bg4.jpg)"];
+		     var j = 1;
+	    	 function  bg(){
+		    	var i = ++j % 4; 
+		    	$("#tea_bg").css("background-image",imgs[i]);
+		     }
+		     
+		     
+		     $(document).ready(function(){
+		    	 setInterval("bg()",3000);
+		     });
+		     
+		     
+	&lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt1.7' class='hiddenRow'>
+    <td class='none'><div class='testcase'>testindAllTeacherMenu</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.7')" >
+        pass</a>
+
+    <div id='div_pt1.7' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt1.7').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt1.7: [{"children":[{"iconCls":"icon-teacher","id":"301","pid":"300","rowid":"2","text":"教师管理","url":"admin_jsps/jsps/teachermanager.jsp"},{"iconCls":"icon-student","id":"302","pid":"300","rowid":"3","text":"学生管理","url":"admin_jsps/jsps/studentmanager.jsp"},{"iconCls":"icon-course","id":"303","pid":"300","rowid":"6","text":"课程管理","url":"admin_jsps/jsps/coursemanager.jsp"}],"iconCls":"icon-man","id":"300","rowid":"1","text":"管理"},{"children":[{"iconCls":"icon-evaluate","id":"401","pid":"400","rowid":"5","text":"今日评价","url":"admin_jsps/jsps/evaluatemanager.jsp"},{"iconCls":"icon-evaluate","id":"402","pid":"400","rowid":"8","text":"评价报表","url":"admin_jsps/jsps/evaluatereport.jsp"}],"iconCls":"icon-evaluate","id":"400","rowid":"4","text":"评价"},{"children":[{"iconCls":"icon-history","id":"501","pid":"500","rowid":"7","text":"历史操作日志","url":"admin_jsps/jsps/opera_history.jsp"}],"iconCls":"icon-history","id":"500","rowid":"6","text":"日志"}]
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt1.8' class='hiddenRow'>
+    <td class='none'><div class='testcase'>testlogin</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr id='pt1.9' class='hiddenRow'>
+    <td class='none'><div class='testcase'>testreportAll</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.9')" >
+        pass</a>
+
+    <div id='div_pt1.9' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt1.9').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt1.9: 
+
+
+
+&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;base href="http://www.jasonisoft.cn:8080/HKR/"&gt;
+    
+    &lt;title&gt;HKR.狼腾测试员综合办公系统  |  教师登录&lt;/title&gt;
+	&lt;meta http-equiv="pragma" content="no-cache"&gt;
+	&lt;meta http-equiv="cache-control" content="no-cache"&gt;
+	&lt;meta http-equiv="expires" content="0"&gt;    
+	&lt;meta http-equiv="keywords" content="keyword1,keyword2,keyword3"&gt;
+	&lt;meta http-equiv="description" content="This is my page"&gt;
+	 &lt;link rel="shortcut icon" href="/HKR/icon/favicon.ico;jsessionid=567D8DDCF53E7287D30564BDD29F63D3" type="image/x-icon" /&gt;
+
+	&lt;link rel="stylesheet" href="./css/login.css"&gt;
+	&lt;script type="text/javascript" src="/HKR/js/jquery-3.2.1.min.js;jsessionid=567D8DDCF53E7287D30564BDD29F63D3"&gt;&lt;/script&gt;
+	&lt;script type="text/javascript" src="/HKR/admin_jsps/js/tea_login.js;jsessionid=567D8DDCF53E7287D30564BDD29F63D3"&gt;&lt;/script&gt;
+	
+  &lt;/head&gt;
+  
+  &lt;body&gt;
+  
+  &lt;style&gt;
+  	.right{
+  		margin:0 auto;
+  	}
+  &lt;/style&gt;
+   	 &lt;div class="dowebok" id="tea_bg"&gt;
+        &lt;div class="container"&gt;
+            &lt;div  class="right"&gt;
+                &lt;svg viewBox="0 0 320 300"&gt;
+                    &lt;defs&gt;
+                        &lt;linearGradient inkscape:collect="always" id="linearGradient" x1="13" y1="193.49992" x2="307"
+                            y2="193.49992" gradientUnits="userSpaceOnUse"&gt;
+                            &lt;stop style="stop-color:#ff00ff;" offset="0" id="stop876" /&gt;
+                            &lt;stop style="stop-color:#ff0000;" offset="1" id="stop878" /&gt;
+                        &lt;/linearGradient&gt;
+                    &lt;/defs&gt;
+                    &lt;path d="m 40,120.00016 239.99984,-3.2e-4 c 0,0 24.99263,0.79932 25.00016,35.00016 0.008,34.20084 -25.00016,35 -25.00016,35 h -239.99984 c 0,-0.0205 -25,4.01348 -25,38.5 0,34.48652 25,38.5 25,38.5 h 215 c 0,0 20,-0.99604 20,-25 0,-24.00396 -20,-25 -20,-25 h -190 c 0,0 -20,1.71033 -20,25 0,24.00396 20,25 20,25 h 168.57143" /&gt;
+                &lt;/svg&gt;
+            &lt;form action="TeacherServlet;jsessionid=567D8DDCF53E7287D30564BDD29F63D3" method="post"  onsubmit="return login_check()"&gt;
+                &lt;div class="form" &gt;
+                	&lt;input type="hidden" name="method" value="login" /&gt;
+                    &lt;label for="loginname" id="msg_uname" style="color:red;"&gt;您还没有登录，别瞎转悠!&lt;/label&gt;
+                    &lt;input type="text" placeholder="教师登录名/手机" onfocus="$('#msg_uname').text('');" id="loginname" name="loginname" onblur="ajax_uname_check()"&gt;
+                    &lt;label for="password" id="msg_pwd"&gt;&lt;/label&gt;
+                    &lt;input type="password" placeholder="请输入密码" id="password" name="password" onfocus="$('#msg_pwd').text('');" onblur="passwd_check()"&gt;
+                    &lt;input type="submit" id="submit" value="登陆"&gt;
+                &lt;/div&gt;
+            &lt;/form&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    
+     &lt;script src="./js/login/anime.min.js"&gt;&lt;/script&gt;
+    &lt;script src="./js/login/index.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript"&gt;
+			 var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串  
+		     var isIE = userAgent.indexOf("compatible") &gt; -1 &amp;&amp; userAgent.indexOf("MSIE") &gt; -1; //判断是否IE&lt;11浏览器  
+		     var isEdge = userAgent.indexOf("Edge") &gt; -1 &amp;&amp; !isIE; //判断是否IE的Edge浏览器  
+		     var isIE11 = userAgent.indexOf("Trident") &gt; -1 || userAgent.indexOf("rv:11.0") &gt; -1;
+	         if(isIE11){
+	        	 window.location = "http://localhost:8080/HKR/error/browser.jsp";
+	        	 
+	         }
+		     if(isIE) {
+		         var reIE = new RegExp("MSIE (\\d+\\.\\d+);");
+		         reIE.test(userAgent);
+		         var fIEVersion = parseFloat(RegExp["$1"]);
+		         if(fIEVersion == 7 || fIEVersion == 8 || fIEVersion == 9 || fIEVersion == 10 || fIEVersion &lt; 7) {
+		        	 window.location = "http://localhost:8080/HKR/error/browser.jsp";
+		         }
+		     }
+		     
+		     
+	    	 var imgs = ["url(img/bg1.jpg)","url(img/bg2.jpg)","url(img/bg3.jpg)","url(img/bg4.jpg)"];
+		     var j = 1;
+	    	 function  bg(){
+		    	var i = ++j % 4; 
+		    	$("#tea_bg").css("background-image",imgs[i]);
+		     }
+		     
+		     
+		     $(document).ready(function(){
+		    	 setInterval("bg()",3000);
+		     });
+		     
+		     
+	&lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='total_row'>
+    <td>Total</td>
+    <td>9</td>
+    <td>9</td>
+    <td>0</td>
+    <td>0</td>
+    <td>&nbsp;</td>
+</tr>
+</table>
+
+<div id='ending'>&nbsp;</div>
+
+</body>
+</html>
